@@ -17,22 +17,27 @@ The extension never clicks a button that accepts everything, a subscribe, pay, o
 
 ## Build and install
 
-A Developer ID–signed, notarized build shows up in Safari like any other extension. Sign in to Xcode with an account on the team in `project.yml`, then:
+A Developer ID–signed, notarized build shows up in Safari like any other extension. It needs, once per Mac:
+
+- A "Developer ID Application" certificate for the team in `project.yml`, with its private key, in the login keychain.
+- An App Store Connect API key with the Admin role. Set `ASC_KEY_PATH` to its `.p8` file, and `ASC_KEY_ID` and `ASC_ISSUER_ID` to its IDs.
+
+The key replaces the Xcode account, so the build does not depend on being signed in to Xcode.
 
 ```sh
+AUTH=(-allowProvisioningUpdates -authenticationKeyPath "$ASC_KEY_PATH"
+      -authenticationKeyID "$ASC_KEY_ID" -authenticationKeyIssuerID "$ASC_ISSUER_ID")
 xcodegen generate
 xcodebuild -project RejectCookies.xcodeproj -scheme RejectCookies -configuration Release \
-  -archivePath .build/RejectCookies.xcarchive -allowProvisioningUpdates archive
-# Signs with Developer ID and sends the app to Apple's notary service with the Xcode account.
+  -archivePath .build/RejectCookies.xcarchive "${AUTH[@]}" archive
+# Signs with Developer ID and sends the app to Apple's notary service.
 xcodebuild -exportArchive -archivePath .build/RejectCookies.xcarchive \
-  -exportOptionsPlist ExportOptions.plist -exportPath .build/export -allowProvisioningUpdates
-# Once Apple has notarized it (usually a few minutes; this fails until then):
-xcodebuild -exportNotarizedApp -archivePath .build/RejectCookies.xcarchive -exportPath .build/notarized
+  -exportOptionsPlist ExportOptions.plist -exportPath .build/export "${AUTH[@]}"
+# Once Apple has notarized it (usually under a minute; this fails until then):
+xcodebuild -exportNotarizedApp -archivePath .build/RejectCookies.xcarchive -exportPath .build/notarized "${AUTH[@]}"
 ditto ".build/notarized/Reject Cookies.app" "/Applications/Reject Cookies.app"
 open "/Applications/Reject Cookies.app"
 ```
-
-If `-exportArchive` fails with "No Accounts" even though Xcode shows your account, distribute from Xcode instead: `open .build/RejectCookies.xcarchive`, then in the Organizer choose Distribute App → Direct Distribution, and export the notarized app when it is ready.
 
 The Xcode build runs `bun run build` in `web/` first. A plain Debug build from Xcode works too, but Safari hides development-signed extensions until Safari → Settings → Developer → "Allow unsigned extensions" is on, and that resets when Safari quits.
 
