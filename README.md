@@ -32,6 +32,8 @@ ditto ".build/notarized/Reject Cookies.app" "/Applications/Reject Cookies.app"
 open "/Applications/Reject Cookies.app"
 ```
 
+If `-exportArchive` fails with "No Accounts" even though Xcode shows your account, distribute from Xcode instead: `open .build/RejectCookies.xcarchive`, then in the Organizer choose Distribute App → Direct Distribution, and export the notarized app when it is ready.
+
 The Xcode build runs `bun run build` in `web/` first. A plain Debug build from Xcode works too, but Safari hides development-signed extensions until Safari → Settings → Developer → "Allow unsigned extensions" is on, and that resets when Safari quits.
 
 Then turn the extension on in Safari → Settings → Extensions and allow it on all websites. The toolbar button shows what happened on the current page and turns the extension off for a site.

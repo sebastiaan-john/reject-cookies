@@ -38,9 +38,6 @@ targets:
       - path: Extension
         excludes: [Resources]
       - Shared
-      - path: Extension/Resources
-        type: folder
-        buildPhase: resources
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: ai.sebastiaan.RejectCookies.Extension
@@ -57,12 +54,14 @@ targets:
       path: Extension/RejectCookiesExtension.entitlements
       properties:
         com.apple.security.app-sandbox: true
-    preBuildScripts:
+    postCompileScripts:
+      # Safari reads manifest.json from the top of the extension's Resources folder.
       - name: Build web extension
         basedOnDependencyAnalysis: false
         script: |
           export PATH="/opt/homebrew/bin:$HOME/.bun/bin:$PATH"
           cd "$SRCROOT/web" && bun install --frozen-lockfile && bun run build
+          ditto "$SRCROOT/Extension/Resources" "$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH"
   RejectCookiesTests:
     type: bundle.unit-test
     platform: macOS
