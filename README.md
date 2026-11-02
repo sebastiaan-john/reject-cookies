@@ -17,13 +17,22 @@ The extension never clicks a button that accepts everything, a subscribe, pay, o
 
 ## Build and install
 
+A Developer ID–signed, notarized build shows up in Safari like any other extension. Sign in to Xcode with an account on the team in `project.yml`, then:
+
 ```sh
 xcodegen generate
-xcodebuild -project RejectCookies.xcodeproj -scheme RejectCookies -configuration Release -derivedDataPath .build/DerivedData build
-open ".build/DerivedData/Build/Products/Release/Reject Cookies.app"
+xcodebuild -project RejectCookies.xcodeproj -scheme RejectCookies -configuration Release \
+  -archivePath .build/RejectCookies.xcarchive -allowProvisioningUpdates archive
+# Signs with Developer ID and sends the app to Apple's notary service with the Xcode account.
+xcodebuild -exportArchive -archivePath .build/RejectCookies.xcarchive \
+  -exportOptionsPlist ExportOptions.plist -exportPath .build/export -allowProvisioningUpdates
+# Once Apple has notarized it (usually a few minutes; this fails until then):
+xcodebuild -exportNotarizedApp -archivePath .build/RejectCookies.xcarchive -exportPath .build/notarized
+ditto ".build/notarized/Reject Cookies.app" "/Applications/Reject Cookies.app"
+open "/Applications/Reject Cookies.app"
 ```
 
-The Xcode build runs `bun run build` in `web/` first. Set your own `DEVELOPMENT_TEAM` in `project.yml` to sign with your account.
+The Xcode build runs `bun run build` in `web/` first. A plain Debug build from Xcode works too, but Safari hides development-signed extensions until Safari → Settings → Developer → "Allow unsigned extensions" is on, and that resets when Safari quits.
 
 Then turn the extension on in Safari → Settings → Extensions and allow it on all websites. The toolbar button shows what happened on the current page and turns the extension off for a site.
 
