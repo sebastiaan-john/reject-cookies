@@ -1,0 +1,22 @@
+# Sites with cookie banners for scripts/e2e.ts, as seen from the Netherlands.
+https://www.nu.nl/
+https://www.marktplaats.nl/
+https://tweakers.net/
+https://www.coolblue.nl/
+https://www.funda.nl/
+https://www.ns.nl/
+https://www.kvk.nl/
+https://www.rijksmuseum.nl/
+https://www.hema.nl/
+https://www.kruidvat.nl/
+https://www.mediamarkt.nl/
+https://www.decathlon.nl/
+https://www.zalando.nl/
+https://www.ikea.com/nl/nl/
+https://www.spiegel.de/
+https://www.lemonde.fr/
+https://www.theguardian.com/europe
+https://www.bbc.com/
+https://stackoverflow.com/questions
+https://www.booking.com/
+https://www.rabobank.nl/

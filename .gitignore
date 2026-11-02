@@ -1,0 +1,10 @@
+.build/
+build/
+DerivedData/
+*.xcodeproj/
+Extension/Resources/
+Extension/Info.plist
+web/node_modules/
+.DS_Store
+App/RejectCookies.entitlements
+Extension/RejectCookiesExtension.entitlements
