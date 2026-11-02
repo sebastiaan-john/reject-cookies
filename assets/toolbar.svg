@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="112 112 800 800">
+  <!-- The app icon's broken cookie as a one-color glyph; chips are holes. -->
+  <path fill-rule="evenodd" transform="translate(-62,22) rotate(-7 512 512)" d="M500,212 L540,300 L480,380 L550,470 L470,560 L545,650 L485,740 L520,812 A300,300 0 0 1 500,212 Z M308,420 a52,52 0 1,0 104,0 a52,52 0 1,0 -104,0 Z M296,620 a44,44 0 1,0 88,0 a44,44 0 1,0 -88,0 Z"/>
+  <path fill-rule="evenodd" transform="translate(62,-22) rotate(7 512 512)" d="M500,212 L540,300 L480,380 L550,470 L470,560 L545,650 L485,740 L520,812 A300,300 0 1 0 500,212 Z M632,430 a48,48 0 1,0 96,0 a48,48 0 1,0 -96,0 Z M598,640 a52,52 0 1,0 104,0 a52,52 0 1,0 -104,0 Z"/>
+</svg>
