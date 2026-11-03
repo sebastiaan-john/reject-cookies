@@ -69,6 +69,6 @@ swiftc -O -swift-version 6 -o .build/decide Shared/ConsentDecider.swift Tools/de
 
 The end-to-end script writes before and after screenshots and `results.json` to `.build/e2e/`. Sites only show banners to visitors from regions that require them, such as the EU.
 
-## Third-party code
+## License
 
-The bundled autoconsent library and rules are MPL-2.0.
+MIT, see [LICENSE](LICENSE). The bundled [autoconsent](https://github.com/duckduckgo/autoconsent) library and rules are MPL-2.0.
